@@ -9,6 +9,8 @@
     <version>1.0</version>
     <name>aliyun-tpp-ai-service-sdk</name>
 
+    <description>aliyun-tpp-ai-service-sdk, default sdk that provides common AI services for Aliyun TPP.</description>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
