@@ -5,10 +5,11 @@
 本项目包含 
 
 * httpClient
-* redisClient
+* redisClient dbIndex
 * predictClient
 * ABFSClient
 * beClient
+* GenericService dubbo
 * 以及一些工具类
 
 开发者通过版本管理软件, 比如 maven /gradle 等, 依赖该 SDK , 开发和编译代码.

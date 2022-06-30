@@ -40,7 +40,7 @@ public class RedisClientForTesting implements RedisClient {
 
     //初始化redis连接池
     @PostConstruct
-    public synchronized void init() {
+    public  void init() {
         if (initial.compareAndSet(false, true)) {
             JedisPoolConfig config = new JedisPoolConfig();
             config.setMaxIdle(redisConfig.getMaxIdleConnectionCount());
@@ -52,7 +52,8 @@ public class RedisClientForTesting implements RedisClient {
                             redisConfig.getHost(),
                             redisConfig.getPort(),
                             redisConfig.getTimeout(),
-                            redisConfig.getPassword());
+                            redisConfig.getPassword(),
+                            redisConfig.getDbIndex());
         }
     }
 
@@ -67,10 +68,13 @@ public class RedisClientForTesting implements RedisClient {
 
     //获取redis连接
     public synchronized Jedis getResource() {
-        if (jedisPool != null && !jedisPool.isClosed()) {
-            return this.jedisPool.getResource();
+        if (jedisPool == null) {
+            throw new IllegalArgumentException("jedisPool is null");
         }
-        return null;
+        if (jedisPool.isClosed()){
+            throw new IllegalArgumentException("jedisPool is closed");
+        }
+        return this.jedisPool.getResource();
     }
 
     //获取redis连接

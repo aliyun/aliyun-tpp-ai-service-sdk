@@ -39,6 +39,7 @@ public interface RedisClient extends Service<RedisConfig> {
     @PreDestroy
     void destroy();
 
+    @Deprecated
     /**
      * 获取redis连接
      */
@@ -48,7 +49,6 @@ public interface RedisClient extends Service<RedisConfig> {
      * 获取redis连接
      */
     void returnResource(Jedis redis);
-
 
     default Long del(byte[]... keys) {
 

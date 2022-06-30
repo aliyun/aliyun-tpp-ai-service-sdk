@@ -24,7 +24,8 @@ public class BeClientForTesting implements BeClient {
     //初始化标识
     private transient AtomicBoolean initial = new AtomicBoolean(false);
 
-    public BeClientForTesting(){}
+    public BeClientForTesting() {
+    }
 
     @Override
     public void setBeConfig(BeConfig beConfig) {
@@ -44,10 +45,9 @@ public class BeClientForTesting implements BeClient {
 
     @Override
     public void destroy() {
-        if (this.beClient != null){
+        if (this.initial.compareAndSet(true, false)) {
             this.beClient = null;
         }
-        this.initial.compareAndSet(true, false);
     }
 
     @Override

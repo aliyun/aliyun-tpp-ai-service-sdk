@@ -48,9 +48,12 @@ public class PredictClientForTesting implements PredictClient {
     @Override
     public void shutdown() {
         if (this.predictClient!=null) {
-            this.predictClient.shutdown();
+            if(this.initial.compareAndSet(true, false)) {
+                if (this.predictClient!=null) {
+                    this.predictClient.shutdown();
+                }
+            }
         }
-        this.initial.compareAndSet(true, false);
     }
 
     @Override

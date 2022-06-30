@@ -28,7 +28,8 @@ public class ABFSClientForTesting implements ABFSClient {
     //初始化标识
     private transient AtomicBoolean initial = new AtomicBoolean(false);
 
-    public ABFSClientForTesting(){}
+    public ABFSClientForTesting() {
+    }
 
     @Override
     public void setABFSConfig(ABFSConfig abfsConfig) {
@@ -83,8 +84,11 @@ public class ABFSClientForTesting implements ABFSClient {
     @Override
     public void close() {
         if (this.abfsClient != null) {
-            this.abfsClient.close();
+            if (this.initial.compareAndSet(true, false)) {
+                if (this.abfsClient != null) {
+                    this.abfsClient.close();
+                }
+            }
         }
-        this.initial.compareAndSet(true, false);
     }
 }

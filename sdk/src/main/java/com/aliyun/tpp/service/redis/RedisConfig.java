@@ -30,6 +30,8 @@ public class RedisConfig implements ServiceConfig {
     private int maxIdleConnectionCount = 256;
     //最大连接数，需自行评估，不超过Redis实例的最大连接数。
     private int maxTotalConnectionCount = 256;
+    //第几个db,默认是db0
+    private int dbIndex=0;
 
     public boolean isValid() {
 

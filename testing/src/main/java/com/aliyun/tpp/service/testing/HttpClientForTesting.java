@@ -118,8 +118,12 @@ public class HttpClientForTesting implements HttpClient {
 
     public void close() throws IOException {
         if (this.closeableHttpClient != null) {
-            this.closeableHttpClient.close();
+            if(this.initial.compareAndSet(true, false)) {
+                if (this.closeableHttpClient != null) {
+                    this.closeableHttpClient.close();
+                }
+            }
         }
-        this.initial.compareAndSet(true, false);
+
     }
 }
